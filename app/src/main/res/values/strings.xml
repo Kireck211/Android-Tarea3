@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">App</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string-array name="laptops">
+        <item>Mac</item>
+        <item>Alienware</item>
+        <item>Lanix</item>
+    </string-array>
+    <string name="location">Zapopan</string>
+    <string name="phone">3312345678</string>
+    <string name="store">Best Buy</string>
+</resources>
