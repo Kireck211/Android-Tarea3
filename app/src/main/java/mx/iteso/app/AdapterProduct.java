@@ -14,13 +14,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import mx.iteso.app.Listeners.OnItemClickListener;
+import mx.iteso.app.listeners.OnItemClickListener;
 import mx.iteso.app.beans.ItemProduct;
 
 public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHolder> implements OnItemClickListener {
     private final ArrayList<ItemProduct> products;
 
-    AdapterProduct (ArrayList<ItemProduct> products) {
+    public AdapterProduct (ArrayList<ItemProduct> products) {
         this.products =  products;
     }
 
