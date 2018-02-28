@@ -140,12 +140,7 @@ public class Activity_main extends AppCompatActivity {
                 products.add(new ItemProduct(laptops[i], store, phone, location, images[i]));
             }
 
-            AdapterProduct adapterProduct = new AdapterProduct(products, new AdapterProduct.OnItemProductClickListener() {
-                @Override
-                public void onItemClick(ItemProduct itemProduct) {
-
-                }
-            });
+            AdapterProduct adapterProduct = new AdapterProduct(products);
             recyclerView.setAdapter(adapterProduct);
 
             return rootView;

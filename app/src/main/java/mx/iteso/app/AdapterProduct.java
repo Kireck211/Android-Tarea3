@@ -16,16 +16,12 @@ import mx.iteso.app.beans.ItemProduct;
 
 public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHolder>{
     private final ArrayList<ItemProduct> products;
-    private final OnItemProductClickListener listener;
 
-    public AdapterProduct (ArrayList<ItemProduct> products, OnItemProductClickListener listener) {
+    public AdapterProduct (ArrayList<ItemProduct> products) {
         this.products =  products;
-        this.listener = listener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        private int ID = 0;
         public TextView mTitle;
         public TextView mStore;
         public TextView mLocation;
@@ -55,12 +51,6 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
                     break;
             }
         }
-
-        public void bind(ItemProduct itemProduct, OnItemProductClickListener listener) {
-            mPhone.setOnClickListener(this);
-            mLayout.setOnClickListener(this);
-            listener.onItemClick(itemProduct);
-        }
     }
 
     @Override
@@ -78,15 +68,10 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
         holder.mLocation.setText(products.get(position).getLocation());
         holder.mPhone.setText(products.get(position).getPhone());
         holder.mImage.setImageResource(products.get(position).getImage());
-        holder.bind(products.get(position), listener);
     }
 
     @Override
     public int getItemCount() {
         return products.size();
-    }
-
-    public interface OnItemProductClickListener {
-        void onItemClick(ItemProduct itemProduct);
     }
 }
