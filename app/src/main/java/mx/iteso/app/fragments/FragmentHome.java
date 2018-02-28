@@ -21,7 +21,7 @@ public class FragmentHome extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_technology, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         RecyclerView recyclerView = rootView.findViewById(R.id.fragment_recycler_view);
         recyclerView.setHasFixedSize(true);
