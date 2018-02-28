@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 import mx.iteso.app.beans.ItemProduct;
 
-public class Activity_main extends AppCompatActivity {
+public class Activity_main extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -71,6 +71,15 @@ public class Activity_main extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.item_product_phone:
+                break;
+            case R.id.item_product_layout:
+                break;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
