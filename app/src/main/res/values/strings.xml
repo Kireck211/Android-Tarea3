@@ -10,4 +10,7 @@
     <string name="location">Zapopan</string>
     <string name="phone">3312345678</string>
     <string name="store">Best Buy</string>
+    <string name="tab1">HOME</string>
+    <string name="tab2">TECHNOLOGY</string>
+    <string name="tab3">ELECTRONICS</string>
 </resources>

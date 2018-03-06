@@ -24,6 +24,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import mx.iteso.app.beans.ItemProduct;
+import mx.iteso.app.fragments.FragmentElectronics;
+import mx.iteso.app.fragments.FragmentHome;
+import mx.iteso.app.fragments.FragmentTechnology;
 
 public class Activity_main extends AppCompatActivity implements View.OnClickListener {
 
@@ -104,59 +107,6 @@ public class Activity_main extends AppCompatActivity implements View.OnClickList
     }
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_activity_main, container, false);
-
-            RecyclerView recyclerView = rootView.findViewById(R.id.fragment_recycler_view);
-            recyclerView.setHasFixedSize(true);
-
-            LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-            recyclerView.setLayoutManager(mLayoutManager);
-
-            ArrayList<ItemProduct> products = new ArrayList<>();
-            String[] laptops = getResources().getStringArray(R.array.laptops);
-            String location = getString(R.string.location);
-            String phone = getString(R.string.phone);
-            String store = getString(R.string.store);
-            int[] images = new int[]{R.drawable.mac, R.drawable.alienware, R.drawable.lanix};
-            for(int i = 0; i < laptops.length; i++) {
-                products.add(new ItemProduct(laptops[i], store, phone, location, images[i]));
-            }
-
-            AdapterProduct adapterProduct = new AdapterProduct(products);
-            recyclerView.setAdapter(adapterProduct);
-
-            return rootView;
-        }
-    }
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -168,9 +118,16 @@ public class Activity_main extends AppCompatActivity implements View.OnClickList
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch (position) {
+                case 0:
+                    return new FragmentTechnology();
+                case 1:
+                    return new FragmentHome();
+                case 2:
+                    return new FragmentElectronics();
+                default:
+                    return new FragmentTechnology();
+            }
         }
 
         @Override
@@ -182,9 +139,9 @@ public class Activity_main extends AppCompatActivity implements View.OnClickList
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0: return "HOME";
-                case 1: return "TECHNOLOGY";
-                case 2: return "ELECTRONICS";
+                case 0: return getString(R.string.tab1);
+                case 1: return getString(R.string.tab2);
+                case 2: return getString(R.string.tab3);
             }
             return null;
         }
