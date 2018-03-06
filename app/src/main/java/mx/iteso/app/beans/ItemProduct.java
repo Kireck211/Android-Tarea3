@@ -1,11 +1,15 @@
 package mx.iteso.app.beans;
 
-public class ItemProduct {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class ItemProduct implements Parcelable {
     private String title;
     private String store;
     private String phone;
     private String location;
     private int image;
+    private int code;
 
     public ItemProduct(String title, String store, String phone, String location, int image) {
         this.title = title;
@@ -13,7 +17,46 @@ public class ItemProduct {
         this.phone = phone;
         this.location = location;
         this.image = image;
+        this.code = 1;
     }
+
+    public ItemProduct(Parcel in) {
+        title = in.readString();
+        store = in.readString();
+        phone = in.readString();
+        location = in.readString();
+        image = in.readInt();
+        code = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(store);
+        dest.writeString(phone);
+        dest.writeString(location);
+        dest.writeInt(image);
+        dest.writeInt(code);
+    }
+
+    public static final Parcelable.Creator<ItemProduct> CREATOR =
+            new Parcelable.Creator<ItemProduct>() {
+
+                @Override
+                public ItemProduct createFromParcel(Parcel source) {
+                    return new ItemProduct(source);
+                }
+
+                @Override
+                public ItemProduct[] newArray(int size) {
+                    return new ItemProduct[size];
+                }
+            };
 
     public String getTitle() {
         return title;

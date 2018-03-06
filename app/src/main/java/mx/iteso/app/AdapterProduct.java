@@ -90,7 +90,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
 
     @Override
     public void onItemClick(ItemProduct itemProduct, Context context) {
-        Toast.makeText(context, itemProduct.toString(), Toast.LENGTH_SHORT).show();
+        
     }
 
     @Override
