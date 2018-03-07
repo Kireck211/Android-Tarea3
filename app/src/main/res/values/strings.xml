@@ -13,4 +13,11 @@
     <string name="tab1">HOME</string>
     <string name="tab2">TECHNOLOGY</string>
     <string name="tab3">ELECTRONICS</string>
+    <string name="product_image_activity_product">Product Image</string>
+    <string name="product_name_activity_product">Product Name</string>
+    <string name="store_activity_product">Store</string>
+    <string name="location_activity_product">Location</string>
+    <string name="phone_activity_product">Phone</string>
+    <string name="save_activity_product">save</string>
+    <string name="cancel_activity_product">cancel</string>
 </resources>

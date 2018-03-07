@@ -36,7 +36,7 @@ public class FragmentElectronics extends Fragment {
         String store = getString(R.string.store);
         int[] images = new int[]{R.drawable.mac, R.drawable.alienware, R.drawable.lanix};
         for(int i = 0; i < laptops.length; i++)
-            products.add(new ItemProduct(laptops[i], store, phone, location, images[i]));
+            products.add(new ItemProduct(laptops[i], store, phone, location, images[i], i));
 
         AdapterProduct adapterProduct = new AdapterProduct(products);
         recyclerView.setAdapter(adapterProduct);

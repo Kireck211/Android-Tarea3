@@ -11,13 +11,13 @@ public class ItemProduct implements Parcelable {
     private int image;
     private int code;
 
-    public ItemProduct(String title, String store, String phone, String location, int image) {
+    public ItemProduct(String title, String store, String phone, String location, int image, int code) {
         this.title = title;
         this.store = store;
         this.phone = phone;
         this.location = location;
         this.image = image;
-        this.code = 1;
+        this.code = code;
     }
 
     public ItemProduct(Parcel in) {
@@ -96,6 +96,14 @@ public class ItemProduct implements Parcelable {
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     @Override

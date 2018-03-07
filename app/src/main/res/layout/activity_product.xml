@@ -1,24 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="mx.iteso.app.ActivityProduct">
+    android:layout_height="match_parent">
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        tools:context="mx.iteso.app.ActivityProduct"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:padding="@dimen/padding_info_activity_product">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_product_activity_product"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/image_height_activity_product"
+            android:scaleType="centerInside"
+            android:contentDescription="@string/product_image_activity_product"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/ti_name_activity_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/product_name_activity_product"
+                android:inputType="text"
+                android:maxLines="1"/>
 
+        </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/ti_store_activity_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/store_activity_product"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/ti_location_activity_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/location_activity_product"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/ti_phone_activity_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_activity_product"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_save_activity_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_activity_product"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/v_button_separator_activity_product"/>
+
+    <View
+        android:id="@+id/v_button_separator_activity_product"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/btn_cancel_activity_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel_activity_product"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/v_button_separator_activity_product"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>
+</layout>

@@ -21,7 +21,7 @@ public class FragmentHome extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_technology, container, false);
 
         RecyclerView recyclerView = rootView.findViewById(R.id.fragment_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -36,7 +36,7 @@ public class FragmentHome extends Fragment {
         String store = getString(R.string.store);
         int[] images = new int[]{R.drawable.mac, R.drawable.alienware, R.drawable.lanix};
         for(int i = 0; i < laptops.length; i++)
-            products.add(new ItemProduct(laptops[i], store, phone, location, images[i]));
+            products.add(new ItemProduct(laptops[i], store, phone, location, images[i], i));
 
         AdapterProduct adapterProduct = new AdapterProduct(products);
         recyclerView.setAdapter(adapterProduct);

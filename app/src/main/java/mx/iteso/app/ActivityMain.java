@@ -1,11 +1,10 @@
 package mx.iteso.app;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import android.support.v4.app.Fragment;
@@ -13,22 +12,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import mx.iteso.app.beans.ItemProduct;
 import mx.iteso.app.fragments.FragmentElectronics;
-import mx.iteso.app.fragments.FragmentHome;
 import mx.iteso.app.fragments.FragmentTechnology;
+import mx.iteso.app.fragments.FragmentHome;
 
-public class Activity_main extends AppCompatActivity implements View.OnClickListener {
+import static mx.iteso.app.utils.Constants.CHANGE_PRODUCT_INFO;
+import static mx.iteso.app.utils.Constants.ITEM_INTENT;
+
+public class ActivityMain extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -44,6 +40,9 @@ public class Activity_main extends AppCompatActivity implements View.OnClickList
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private FragmentHome mFragmentHome;
+    private FragmentTechnology mFragmentTechnology;
+    private FragmentElectronics mFragmentElectronics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,13 +119,23 @@ public class Activity_main extends AppCompatActivity implements View.OnClickList
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new FragmentTechnology();
+                    if (mFragmentTechnology == null) {
+                        mFragmentTechnology = new FragmentTechnology();
+                    }
+                    return mFragmentTechnology;
                 case 1:
-                    return new FragmentHome();
+                if (mFragmentHome == null) {
+                        mFragmentHome = new FragmentHome();
+                    }
+                return mFragmentHome;
                 case 2:
-                    return new FragmentElectronics();
+                    if (mFragmentElectronics == null)
+                        mFragmentElectronics = new FragmentElectronics();
+                    return mFragmentElectronics;
                 default:
-                    return new FragmentTechnology();
+                    if (mFragmentHome == null)
+                        mFragmentHome = new FragmentHome();
+                    return mFragmentHome;
             }
         }
 
@@ -139,11 +148,26 @@ public class Activity_main extends AppCompatActivity implements View.OnClickList
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0: return getString(R.string.tab1);
-                case 1: return getString(R.string.tab2);
+                case 0: return getString(R.string.tab2);
+                case 1: return getString(R.string.tab1);
                 case 2: return getString(R.string.tab3);
             }
             return null;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case CHANGE_PRODUCT_INFO:
+                if (resultCode == RESULT_OK && data != null) {
+                    ItemProduct itemProduct = data.getParcelableExtra(ITEM_INTENT);
+                    if (itemProduct != null) {
+                        mFragmentTechnology.onChangeItem(itemProduct);
+                    }
+                }
+                break;
         }
     }
 }

@@ -13,12 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mx.iteso.app.listeners.OnItemClickListener;
 import mx.iteso.app.beans.ItemProduct;
 
+import static mx.iteso.app.utils.Constants.CHANGE_PRODUCT_INFO;
+import static mx.iteso.app.utils.Constants.ITEM_INTENT;
+
 public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHolder> implements OnItemClickListener {
-    private final ArrayList<ItemProduct> products;
+    public List<ItemProduct> products;
 
     public AdapterProduct (ArrayList<ItemProduct> products) {
         this.products =  products;
@@ -90,7 +94,9 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
 
     @Override
     public void onItemClick(ItemProduct itemProduct, Context context) {
-        
+        Intent intent = new Intent(context, ActivityProduct.class);
+        intent.putExtra(ITEM_INTENT, itemProduct);
+        ((ActivityMain) context).startActivityForResult(intent, CHANGE_PRODUCT_INFO);
     }
 
     @Override
