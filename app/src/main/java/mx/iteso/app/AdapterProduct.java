@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +18,12 @@ import mx.iteso.app.listeners.OnItemClickListener;
 import mx.iteso.app.beans.ItemProduct;
 
 import static mx.iteso.app.utils.Constants.CHANGE_PRODUCT_INFO;
+import static mx.iteso.app.utils.Constants.FRAGMENT_INTENT;
+import static mx.iteso.app.utils.Constants.FRAGMENT_TECHNOLOGY;
 import static mx.iteso.app.utils.Constants.ITEM_INTENT;
 
 public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHolder> implements OnItemClickListener {
-    public List<ItemProduct> products;
+    private List<ItemProduct> products;
 
     public AdapterProduct (ArrayList<ItemProduct> products) {
         this.products =  products;
@@ -77,8 +78,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_product, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -96,6 +96,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ViewHold
     public void onItemClick(ItemProduct itemProduct, Context context) {
         Intent intent = new Intent(context, ActivityProduct.class);
         intent.putExtra(ITEM_INTENT, itemProduct);
+        intent.putExtra(FRAGMENT_INTENT, FRAGMENT_TECHNOLOGY);
         ((ActivityMain) context).startActivityForResult(intent, CHANGE_PRODUCT_INFO);
     }
 

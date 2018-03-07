@@ -20,7 +20,7 @@ public class ItemProduct implements Parcelable {
         this.code = code;
     }
 
-    public ItemProduct(Parcel in) {
+    private ItemProduct(Parcel in) {
         title = in.readString();
         store = in.readString();
         phone = in.readString();

@@ -6,26 +6,29 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import mx.iteso.app.beans.ItemProduct;
 import mx.iteso.app.databinding.ActivityProductBinding;
 
+import static mx.iteso.app.utils.Constants.FRAGMENT_INTENT;
 import static mx.iteso.app.utils.Constants.ITEM_INTENT;
 
 public class ActivityProduct extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityProductBinding mBinding;
     private ItemProduct mItemProduct;
+    private int mSelectedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_product);
-
-        if (getIntent() != null) {
+        Intent intent = getIntent();
+        if (intent != null) {
             mItemProduct = getIntent().getParcelableExtra(ITEM_INTENT);
             if (mItemProduct != null) {
+                if (intent.getExtras() != null)
+                    mSelectedFragment = intent.getExtras().getInt(FRAGMENT_INTENT);
                 mBinding.tiNameActivityProduct.setText(mItemProduct.getTitle());
                 mBinding.tiStoreActivityProduct.setText(mItemProduct.getStore());
                 mBinding.tiPhoneActivityProduct.setText(mItemProduct.getPhone());
@@ -51,6 +54,7 @@ public class ActivityProduct extends AppCompatActivity implements View.OnClickLi
                         mItemProduct.getCode()
                 );
                 intent.putExtra(ITEM_INTENT, itemProduct);
+                intent.putExtra(FRAGMENT_INTENT, mSelectedFragment);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

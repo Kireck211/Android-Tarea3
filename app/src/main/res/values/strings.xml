@@ -18,6 +18,6 @@
     <string name="store_activity_product">Store</string>
     <string name="location_activity_product">Location</string>
     <string name="phone_activity_product">Phone</string>
-    <string name="save_activity_product">save</string>
-    <string name="cancel_activity_product">cancel</string>
+    <string name="save_activity_product">Save</string>
+    <string name="cancel_activity_product">Cancel</string>
 </resources>

@@ -22,24 +22,14 @@ import mx.iteso.app.fragments.FragmentTechnology;
 import mx.iteso.app.fragments.FragmentHome;
 
 import static mx.iteso.app.utils.Constants.CHANGE_PRODUCT_INFO;
+import static mx.iteso.app.utils.Constants.FRAGMENT_ELECTRONICS;
+import static mx.iteso.app.utils.Constants.FRAGMENT_HOME;
+import static mx.iteso.app.utils.Constants.FRAGMENT_INTENT;
+import static mx.iteso.app.utils.Constants.FRAGMENT_TECHNOLOGY;
 import static mx.iteso.app.utils.Constants.ITEM_INTENT;
 
-public class ActivityMain extends AppCompatActivity implements View.OnClickListener {
+public class ActivityMain extends AppCompatActivity {
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    private ViewPager mViewPager;
     private FragmentHome mFragmentHome;
     private FragmentTechnology mFragmentTechnology;
     private FragmentElectronics mFragmentElectronics;
@@ -49,20 +39,31 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        /*
+      The {@link android.support.v4.view.PagerAdapter} that will provide
+      fragments for each of the sections. We use a
+      {@link FragmentPagerAdapter} derivative, which will keep every
+      loaded fragment in memory. If this becomes too memory intensive, it
+      may be best to switch to a
+      {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        /*
+      The {@link ViewPager} that will host the section contents.
+     */
+        ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,16 +72,6 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_product_phone:
-                break;
-            case R.id.item_product_layout:
-                break;
-        }
     }
 
     @Override
@@ -129,13 +120,15 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
                     }
                 return mFragmentHome;
                 case 2:
-                    if (mFragmentElectronics == null)
+                    if (mFragmentElectronics == null) {
                         mFragmentElectronics = new FragmentElectronics();
+                    }
                     return mFragmentElectronics;
                 default:
-                    if (mFragmentHome == null)
-                        mFragmentHome = new FragmentHome();
-                    return mFragmentHome;
+                    if (mFragmentTechnology == null) {
+                        mFragmentTechnology = new FragmentTechnology();
+                    }
+                    return mFragmentTechnology;
             }
         }
 
@@ -148,11 +141,24 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case 0: return getString(R.string.tab2);
-                case 1: return getString(R.string.tab1);
-                case 2: return getString(R.string.tab3);
+                case FRAGMENT_TECHNOLOGY: return getString(R.string.tab2);
+                case FRAGMENT_HOME: return getString(R.string.tab1);
+                case FRAGMENT_ELECTRONICS: return getString(R.string.tab3);
             }
             return null;
+        }
+    }
+
+    private void onChangeItemSelectedFragment(int selectedFragment, ItemProduct itemProduct) {
+        switch (selectedFragment) {
+            case FRAGMENT_TECHNOLOGY:
+                mFragmentTechnology.onChangeItem(itemProduct);
+                break;
+            case FRAGMENT_HOME:
+                break;
+            case FRAGMENT_ELECTRONICS:
+                break;
+            default:
         }
     }
 
@@ -163,8 +169,11 @@ public class ActivityMain extends AppCompatActivity implements View.OnClickListe
             case CHANGE_PRODUCT_INFO:
                 if (resultCode == RESULT_OK && data != null) {
                     ItemProduct itemProduct = data.getParcelableExtra(ITEM_INTENT);
+                    int selectedFragment = FRAGMENT_TECHNOLOGY;
+                    if (data.getExtras() != null)
+                        selectedFragment = data.getExtras().getInt(FRAGMENT_INTENT);
                     if (itemProduct != null) {
-                        mFragmentTechnology.onChangeItem(itemProduct);
+                        onChangeItemSelectedFragment(selectedFragment, itemProduct);
                     }
                 }
                 break;
