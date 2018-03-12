@@ -1,6 +1,7 @@
 package mx.iteso.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -27,6 +28,7 @@ import static mx.iteso.app.utils.Constants.FRAGMENT_HOME;
 import static mx.iteso.app.utils.Constants.FRAGMENT_INTENT;
 import static mx.iteso.app.utils.Constants.FRAGMENT_TECHNOLOGY;
 import static mx.iteso.app.utils.Constants.ITEM_INTENT;
+import static mx.iteso.app.utils.Constants.USER_PREFERENCES;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -88,13 +90,38 @@ public class ActivityMain extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_log_out:
+                logOut();
+                return true;
+            case R.id.action_privacy_policy:
+                showPrivacyPolicy();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+    private void showPrivacyPolicy() {
+        Intent intent = new Intent(this, ActivityPrivacyPolicy.class);
+        startActivity(intent);
+    }
+
+    private void logOut() {
+        SharedPreferences sharedPreferences =
+                getSharedPreferences(USER_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+
+        Intent intent = new Intent(ActivityMain.this, ActivityLogin.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

@@ -20,4 +20,10 @@
     <string name="phone_activity_product">Phone</string>
     <string name="save_activity_product">Save</string>
     <string name="cancel_activity_product">Cancel</string>
+    <string name="splash_screen_text">WELCOME TO ITESO PRODUCTS</string>
+    <string name="log_in_button_text">LOG IN</string>
+    <string name="action_log_out">Log Out</string>
+    <string name="user_name_login_hint">Introduce user name</string>
+    <string name="password_login_hint">Introduce password</string>
+    <string name="action_privacy_policy">Privacy Policy</string>
 </resources>

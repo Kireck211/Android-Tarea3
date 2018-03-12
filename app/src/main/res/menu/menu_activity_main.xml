@@ -2,9 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="mx.iteso.app.ActivityMain">
-    <item
+    <!--<item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
+        app:showAsAction="never" />-->
+    <item
+        android:id="@+id/action_log_out"
+        android:orderInCategory="200"
+        android:title="@string/action_log_out"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_privacy_policy"
+        android:orderInCategory="300"
+        android:title="@string/action_privacy_policy"
         app:showAsAction="never" />
 </menu>
