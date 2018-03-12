@@ -41,10 +41,11 @@ public class ActivityPrivacyPolicy extends AppCompatActivity {
             mBinding.wbPrivacyPolicy.goBack();
             return true;
         }
-        
+
         return super.onKeyDown(keyCode, event);
     }
 
+    
     private class MyWebViewClient extends WebViewClient {
 
         @Override
