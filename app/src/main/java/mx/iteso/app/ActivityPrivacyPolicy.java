@@ -50,18 +50,12 @@ public class ActivityPrivacyPolicy extends AppCompatActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                ActivityPrivacyPolicy.this.startActivity(intent);
-                return true;
-            }
             return false;
         }
 
         @TargetApi(Build.VERSION_CODES.N)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            view.loadUrl(request.getUrl().toString());
             return true;
         }
     }
