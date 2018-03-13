@@ -45,7 +45,7 @@ public class ActivityPrivacyPolicy extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    
+
     private class MyWebViewClient extends WebViewClient {
 
         @Override
@@ -62,7 +62,7 @@ public class ActivityPrivacyPolicy extends AppCompatActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             view.loadUrl(request.getUrl().toString());
-            return true;
+            return false;
         }
     }
 }
