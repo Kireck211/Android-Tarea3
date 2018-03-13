@@ -18,8 +18,6 @@ import static mx.iteso.app.utils.Constants.USER_PREFERENCES;
 
 public class ActivitySplashScreen extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
