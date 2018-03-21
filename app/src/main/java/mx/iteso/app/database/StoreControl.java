@@ -3,31 +3,47 @@ package mx.iteso.app.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 import mx.iteso.app.beans.City;
 import mx.iteso.app.beans.Store;
 
+import static mx.iteso.app.utils.Constants.SQL_ERROR_INSERT;
+
 public class StoreControl {
-    public void addStore(Store store, DataBaseHandler dh) {
+    private static final String TAG = "Debug " + StoreControl.class.getSimpleName();
+
+    public boolean addStore(Store store, DataBaseHandler dh) {
         SQLiteDatabase db = dh.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("id", store.getId());
+        // Begin transaction
+        db.beginTransaction();
+
         values.put("name", store.getName());
         values.put("phone", store.getPhone());
         values.put("idcity", store.getCity().getId());
         values.put("thumbnail", store.getThumbnail());
         values.put("latitude", store.getLatitude());
         values.put("longitude", store.getLongitude());
-        db.insert("Store", null, values);
+        final long result = db.insert("Store", null, values);
+
+        if (result != SQL_ERROR_INSERT)
+            db.setTransactionSuccessful();
+
+        // Close transaction
+        db.endTransaction();
+
         try {
             db.close();
         } catch (Exception e) {
-
+            Log.d(TAG, e.toString());
         }
         db = null;
         values = null;
+
+        return result != SQL_ERROR_INSERT;
     }
 
     public ArrayList<Store> getStores(DataBaseHandler dh) {
@@ -52,6 +68,7 @@ public class StoreControl {
             cursor.close();
             db.close();
         } catch (Exception e) {
+            Log.d(TAG, e.toString());
         }
         db = null;
         cursor = null;
@@ -60,7 +77,7 @@ public class StoreControl {
 
     public Store getStoreById(int idStore, DataBaseHandler dh) {
         Store store = null;
-        String select = "SELECT id, name, phone, thumbnail, latitude, longitude, City.id, City.name FROM Store WHERE id = " + idStore + " INNER JOIN City ON Store.idcity = City.id";
+        String select = "SELECT id, name, phone, thumbnail, latitude, longitude, City.id, City.name FROM Store WHERE id = " + idStore + " INNER JOIN City ON Store.idcity = City.id;";
         SQLiteDatabase db = dh.getReadableDatabase();
         Cursor cursor = db.rawQuery(select, null);
         if (cursor != null) {
@@ -80,6 +97,7 @@ public class StoreControl {
             cursor.close();
             db.close();
         } catch (Exception e) {
+            Log.d(TAG, e.toString());
         }
         db = null;
         cursor = null;

@@ -1,10 +1,13 @@
 package mx.iteso.app.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DataBaseHandler extends SQLiteOpenHelper {
+    private static final String TAG = "Debug " + DataBaseHandler.class.getSimpleName();
     private static final String DATABASE_NAME = "ITESO_APP.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -26,13 +29,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 "CREATE TABLE City (" +
                         "id INTEGER PRIMARY KEY," +
                         "name TEXT" +
-                        ")";
+                        ");";
 
         String category =
                 "CREATE TABLE Category (" +
                         "id INTEGER PRIMARY KEY," +
                         "name TEXT" +
-                        ")";
+                        ");";
 
         String store =
                 "CREATE TABLE Store (" +
@@ -43,22 +46,26 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                         "thumbnail INTEGER," +
                         "latitude DOUBLE," +
                         "longitude DOUBLE" +
-                        ")";
+                        ");";
 
         String product =
                 "CREATE TABLE Product (" +
                         "idproduct INTEGER PRIMARY KEY, " +
                         "title TEXT," +
+                        "description TEXT, " +
                         "image INTEGER," +
                         "idcategory INTEGER" +
-                        ")";
+                        ");";
 
         String storeProduct =
                 "CREATE TABLE StoreProduct (" +
                         "id INTEGER PRIMARY KEY," +
                         "idproduct INTEGER," +
                         "idstore INTEGER" +
-                        ")";
+                        ");";
+        //  Start transaction
+        db.beginTransaction();
+
         db.execSQL(city);
         db.execSQL(category);
         db.execSQL(store);
@@ -66,9 +73,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.execSQL(storeProduct);
 
         // Add immediately three categories
-        db.execSQL("INSERT INTO Category (id, name) VALUES (0, 'TECHNOLOGY')");
-        db.execSQL("INSERT INTO Category (id, name) VALUES (1, 'HOME')");
-        db.execSQL("INSERT INTO Category (id, name) VALUES (2, 'ELECTRONICS')");
+        db.execSQL("INSERT INTO Category (name) VALUES ('TECHNOLOGY');");
+        db.execSQL("INSERT INTO Category (name) VALUES ('HOME');");
+        db.execSQL("INSERT INTO Category (name) VALUES ('ELECTRONICS');");
 
         // Add immediately cities
         String[] cities = new String[] {
@@ -116,8 +123,47 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 "Lazaro Cardenas",
                 "Zacatecas"
         };
-        for(int i = 0; i < cities.length; i++)
-            db.execSQL("INSERT INTO City (id, name) VALUES (" + i + ", '" + cities[i] + "')");
+
+        for (String city_name : cities) db.execSQL("INSERT INTO City (name) VALUES ('" + city_name + "');");
+
+        try {
+            checkDataBase(db);
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.d(TAG, e.toString());
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+    public void checkDataBase(SQLiteDatabase db) throws Exception {
+        String[] tableNames = new String[]{"City", "Category", "Store", "Product", "StoreProduct"};
+        Cursor cursor;
+
+        // Check if all tables were created correctly
+        String query;
+        for (String tableName : tableNames) {
+            query = "SELECT name FROM sqlite_master WHERE type='table' AND name={'" + tableName +"'};";
+            cursor = db.rawQuery(query, null);
+
+            if (cursor == null || cursor.getCount() == 0)
+                throw new Exception("Table " + tableName + " was not created.");
+        }
+
+        // Check if Category tables contains three elements
+        query = "SELECT id, name FROM Category;";
+        cursor = db.rawQuery(query, null);
+        if (cursor.getCount() != 3)
+            throw  new Exception("Category table does not contain three elements.");
+
+        // Check if cities were inserted
+        query = "SELECT id, name FROM City;";
+        cursor = db.rawQuery(query, null);
+        if (cursor.getCount() != 43)
+            throw new Exception("City table does not contain all cities.");
+
+        cursor.close();
+        cursor = null;
     }
 
     @Override
