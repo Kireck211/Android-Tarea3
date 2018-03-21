@@ -21,9 +21,10 @@
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/ti_title_activity_item"
-            android:hint="Introduce title..."
+            android:hint="@string/hint_activity_item"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -49,7 +50,7 @@
             android:id="@+id/btn_save_activity_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Guardar"/>
+            android:text="@string/save_activity_item"/>
 
     </LinearLayout>
 

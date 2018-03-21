@@ -131,7 +131,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         }
 
         try {
-            checkDataBase(db);
+            checkDataBase(db, cities.length);
             db.setTransactionSuccessful();
         } catch (Exception e) {
             Log.d(TAG, e.toString());
@@ -140,14 +140,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    public void checkDataBase(SQLiteDatabase db) throws Exception {
+    public void checkDataBase(SQLiteDatabase db, int cities) throws Exception {
         String[] tableNames = new String[]{"City", "Category", "Store", "Product", "StoreProduct"};
         Cursor cursor;
 
         // Check if all tables were created correctly
         String query;
         for (String tableName : tableNames) {
-            query = "SELECT name FROM sqlite_master WHERE type='table' AND name={'" + tableName +"'};";
+            query = "SELECT name FROM sqlite_master WHERE type='table' AND name='" + tableName +"';";
             cursor = db.rawQuery(query, null);
 
             if (cursor == null || cursor.getCount() == 0)
@@ -163,7 +163,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // Check if cities were inserted
         query = "SELECT id, name FROM City;";
         cursor = db.rawQuery(query, null);
-        if (cursor.getCount() != 43)
+        if (cursor.getCount() != cities)
             throw new Exception("City table does not contain all cities.");
 
         cursor.close();

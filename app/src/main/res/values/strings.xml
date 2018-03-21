@@ -31,4 +31,6 @@
     <string name="user_name_login_hint">Introduce user name</string>
     <string name="password_login_hint">Introduce password</string>
     <string name="action_privacy_policy">Privacy Policy</string>
+    <string name="hint_activity_item">Introduce title...</string>
+    <string name="save_activity_item">Guardar</string>
 </resources>

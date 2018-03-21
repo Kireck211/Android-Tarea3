@@ -16,6 +16,9 @@ import mx.iteso.app.R;
 import mx.iteso.app.beans.ItemProduct;
 
 public class FragmentHome extends Fragment {
+    private AdapterProduct mAdapter;
+    private ArrayList<ItemProduct> products;
+
     public FragmentHome() {}
 
     @Nullable
@@ -29,7 +32,7 @@ public class FragmentHome extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        ArrayList<ItemProduct> products = new ArrayList<>();
+        products = new ArrayList<>();
         String[] laptops = getResources().getStringArray(R.array.laptops);
         String location = getString(R.string.location);
         String phone = getString(R.string.phone);
@@ -38,9 +41,22 @@ public class FragmentHome extends Fragment {
         /*for(int i = 0; i < laptops.length; i++)
             products.add(new ItemProduct(laptops[i], store, phone, location, images[i], i));*/
 
-        AdapterProduct adapterProduct = new AdapterProduct(products);
-        recyclerView.setAdapter(adapterProduct);
+        mAdapter = new AdapterProduct(products);
+        recyclerView.setAdapter(mAdapter);
 
         return rootView;
+    }
+
+    public void onChangeItem(ItemProduct itemProduct) {
+        final int code = itemProduct.getCode();
+        if (code < this.products.size()) {
+            this.products.set(code, itemProduct);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void addItem(ItemProduct itemProduct) {
+        this.products.add(itemProduct);
+        mAdapter.notifyDataSetChanged();
     }
 }

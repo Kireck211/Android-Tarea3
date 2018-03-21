@@ -28,8 +28,8 @@ public class ActivityItem extends AppCompatActivity implements View.OnClickListe
 
     private ActivityItemBinding mBinding;
     private ArrayAdapter<String> mDrawablesAdapter;
-    private ArrayAdapter<Category> mCategoryAdapter;
-    private ArrayAdapter<Store> mStoreAdapter;
+    private ArrayAdapter<String> mCategoryAdapter;
+    private ArrayAdapter<String> mStoreAdapter;
     private String[] mDrawables;
     private ArrayList<Category> mCategories;
     private ArrayList<Store> mStores;
@@ -45,17 +45,26 @@ public class ActivityItem extends AppCompatActivity implements View.OnClickListe
             mBinding = DataBindingUtil.setContentView(this, R.layout.activity_item);
 
             mDrawables = getResources().getStringArray(R.array.drawables);
+            String[] drawables = new String[mDrawables.length];
+            for(int i = 0; i < mDrawables.length; i++)
+                mDrawables[i] = mDrawables[i].substring(mDrawables[i].lastIndexOf("/") + 1, mDrawables[i].indexOf("."));
             mDrawablesAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, mDrawables);
             mBinding.spImageActivityItem.setAdapter(mDrawablesAdapter);
             mBinding.spImageActivityItem.setSelection(FIRST);
 
-            mCategories = CategoryControl.getCategories(dataBaseHandler);
-            mCategoryAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, mCategories);
+            mCategories =  CategoryControl.getCategories(dataBaseHandler);
+            String[] categoryNames = new String[mCategories.size()];
+            for(int i = 0; i < mCategories.size(); i++)
+                categoryNames[i] = mCategories.get(i).toString();
+            mCategoryAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, categoryNames);
             mBinding.spCategoryActivityItem.setAdapter(mCategoryAdapter);
             mBinding.spCategoryActivityItem.setSelection(FIRST);
 
             mStores = StoreControl.getStores(dataBaseHandler);
-            mStoreAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, mStores);
+            String[] storeNames = new String[mStores.size()];
+            for(int i = 0; i < mStores.size(); i++)
+                storeNames[i] = mStores.get(i).toString();
+            mStoreAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, storeNames);
             mBinding.spStoresActivityItem.setAdapter(mStoreAdapter);
             mBinding.spStoresActivityItem.setSelection(FIRST);
 

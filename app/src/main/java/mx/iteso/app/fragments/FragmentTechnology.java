@@ -32,16 +32,16 @@ public class FragmentTechnology extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        /*if (products == null) {
+        if (products == null) {
             products = new ArrayList<>();
             String[] laptops = getResources().getStringArray(R.array.laptops);
             String location = getString(R.string.location);
             String phone = getString(R.string.phone);
             String store = getString(R.string.store);
             int[] images = new int[]{R.drawable.mac, R.drawable.alienware, R.drawable.lanix};
-            for (int i = 0; i < laptops.length; i++)
-                products.add(new ItemProduct(laptops[i], store, phone, location, images[i], i));
-        }*/
+            /*for (int i = 0; i < laptops.length; i++)
+                products.add(new ItemProduct(laptops[i], store, phone, location, images[i], i));*/
+        }
 
         if (mAdapterProduct == null)
             mAdapterProduct= new AdapterProduct(products);
@@ -56,5 +56,10 @@ public class FragmentTechnology extends Fragment {
             this.products.set(code, itemProduct);
             mAdapterProduct.notifyDataSetChanged();
         }
+    }
+
+    public void addItem(ItemProduct itemProduct) {
+        this.products.add(itemProduct);
+        mAdapterProduct.notifyDataSetChanged();
     }
 }

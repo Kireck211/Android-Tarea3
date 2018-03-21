@@ -23,14 +23,17 @@ public class ItemProductControl {
         // Begin transaction
         db.beginTransaction();
 
-        values.put("idproduct", itemProduct.getCode());
         values.put("title", itemProduct.getTitle());
         values.put("image", itemProduct.getImage());
         values.put("idcategory", itemProduct.getCategory().getId());
         final long resultProduct = db.insert("Product", null, values);
 
+        String select = "SELECT last_insert_rowid()";
+        Cursor cursor = db.rawQuery(select, null);
+        cursor.moveToNext();
+
         values = new ContentValues();
-        values.put("idproduct", itemProduct.getCode());
+        values.put("idproduct", cursor.getInt(0));
         values.put("idstore", itemProduct.getStore().getId());
         final long resultRelation = db.insert("StoreProduct", null, values);
 

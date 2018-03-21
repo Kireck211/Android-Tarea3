@@ -68,6 +68,10 @@ public class Store implements Parcelable {
         this.city = city;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 
     @Override
     public int describeContents() {

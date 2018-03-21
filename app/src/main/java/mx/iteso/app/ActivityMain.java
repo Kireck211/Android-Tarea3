@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,10 +33,13 @@ import static mx.iteso.app.utils.Constants.ITEM_INTENT;
 import static mx.iteso.app.utils.Constants.USER_PREFERENCES;
 
 public class ActivityMain extends AppCompatActivity {
+    private static final String TAG = "Debug " + ActivityMain.class.getSimpleName();
 
     private FragmentHome mFragmentHome;
     private FragmentTechnology mFragmentTechnology;
     private FragmentElectronics mFragmentElectronics;
+
+    private int mSelectedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,22 @@ public class ActivityMain extends AppCompatActivity {
      */
         ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mSelectedFragment = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         tabLayout.setupWithViewPager(mViewPager);
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -133,6 +153,8 @@ public class ActivityMain extends AppCompatActivity {
             super(fm);
         }
 
+
+
         @Override
         public Fragment getItem(int position) {
             switch (position) {
@@ -182,10 +204,25 @@ public class ActivityMain extends AppCompatActivity {
                 mFragmentTechnology.onChangeItem(itemProduct);
                 break;
             case FRAGMENT_HOME:
+                mFragmentHome.onChangeItem(itemProduct);
                 break;
             case FRAGMENT_ELECTRONICS:
+                mFragmentElectronics.onChangeItem(itemProduct);
                 break;
             default:
+        }
+    }
+
+    private void onAddedItem(ItemProduct itemProduct) {
+        String category = itemProduct.getCategory().getName();
+        if (category.equals(getString(R.string.tab1))) { // HOME
+            mFragmentHome.addItem(itemProduct);
+        } else if (category.equals(getString(R.string.tab2))) { // TECHNOLOGY
+            mFragmentTechnology.addItem(itemProduct);
+        } else if (category.equals(getString(R.string.tab3))) { // ELECTRONICS
+            mFragmentElectronics.addItem(itemProduct);
+        } else {
+            Log.e(TAG, "Error on selected category");
         }
     }
 
@@ -196,18 +233,15 @@ public class ActivityMain extends AppCompatActivity {
             case CHANGE_PRODUCT_INFO:
                 if (resultCode == RESULT_OK && data != null) {
                     ItemProduct itemProduct = data.getParcelableExtra(ITEM_INTENT);
-                    int selectedFragment = FRAGMENT_TECHNOLOGY;
-                    if (data.getExtras() != null)
-                        selectedFragment = data.getExtras().getInt(FRAGMENT_INTENT);
                     if (itemProduct != null) {
-                        onChangeItemSelectedFragment(selectedFragment, itemProduct);
+                        onChangeItemSelectedFragment(mSelectedFragment, itemProduct);
                     }
                 }
                 break;
             case ADD_PRODUCT_ITENT:
                 if (resultCode == RESULT_OK && data != null) {
                     ItemProduct itemProduct = data.getParcelableExtra(ITEM_INTENT);
-                    
+                    onAddedItem(itemProduct);
                 }
                 break;
         }
