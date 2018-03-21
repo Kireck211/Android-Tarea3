@@ -15,7 +15,7 @@ import static mx.iteso.app.utils.Constants.SQL_ERROR_INSERT;
 public class StoreControl {
     private static final String TAG = "Debug " + StoreControl.class.getSimpleName();
 
-    public boolean addStore(Store store, DataBaseHandler dh) {
+    public static boolean addStore(Store store, DataBaseHandler dh) {
         SQLiteDatabase db = dh.getWritableDatabase();
         ContentValues values = new ContentValues();
         // Begin transaction
@@ -46,10 +46,11 @@ public class StoreControl {
         return result != SQL_ERROR_INSERT;
     }
 
-    public ArrayList<Store> getStores(DataBaseHandler dh) {
+    public static ArrayList<Store> getStores(DataBaseHandler dh) {
         ArrayList<Store> stores = new ArrayList<>();
-        String select = "SELECT id, name, phone, thumbnail, latitude, longitude, City.id, City.name FROM Store INNER JOIN City ON Store.idcity = City.id";
         SQLiteDatabase db = dh.getReadableDatabase();
+
+        String select = "SELECT id, name, phone, thumbnail, latitude, longitude, City.id, City.name FROM Store INNER JOIN City ON Store.idcity = City.id";
         Cursor cursor = db.rawQuery(select, null);
         while (cursor.moveToNext()) {
             Store store = new Store();

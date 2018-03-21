@@ -121,10 +121,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 "Tonala",
                 "Mazatlan",
                 "Lazaro Cardenas",
+                "Tepic",
                 "Zacatecas"
         };
 
-        for (String city_name : cities) db.execSQL("INSERT INTO City (name) VALUES ('" + city_name + "');");
+        for (String city_name : cities)  {
+            city_name = city_name.replaceAll("\\s+","").toLowerCase() ;
+            db.execSQL("INSERT INTO City (name) VALUES ('" + city_name + "');");
+        }
 
         try {
             checkDataBase(db);

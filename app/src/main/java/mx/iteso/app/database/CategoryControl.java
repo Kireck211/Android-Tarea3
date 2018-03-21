@@ -11,7 +11,7 @@ import mx.iteso.app.beans.Category;
 public class CategoryControl {
     private static final String TAG = "Debug " + CategoryControl.class.getSimpleName();
 
-    ArrayList<Category> getCategories(DataBaseHandler dh) {
+    public static ArrayList<Category> getCategories(DataBaseHandler dh) {
         ArrayList<Category> categories = new ArrayList<>();
         String select = "SELECT id, name FROM Category;";
         SQLiteDatabase db = dh.getReadableDatabase();
