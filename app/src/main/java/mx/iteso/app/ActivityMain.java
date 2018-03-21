@@ -22,6 +22,7 @@ import mx.iteso.app.fragments.FragmentElectronics;
 import mx.iteso.app.fragments.FragmentTechnology;
 import mx.iteso.app.fragments.FragmentHome;
 
+import static mx.iteso.app.utils.Constants.ADD_PRODUCT_ITENT;
 import static mx.iteso.app.utils.Constants.CHANGE_PRODUCT_INFO;
 import static mx.iteso.app.utils.Constants.FRAGMENT_ELECTRONICS;
 import static mx.iteso.app.utils.Constants.FRAGMENT_HOME;
@@ -69,11 +70,10 @@ public class ActivityMain extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(ActivityMain.this, ActivityItem.class);
+                startActivityForResult(intent, ADD_PRODUCT_ITENT);
             }
         });
-
     }
 
     @Override
@@ -202,6 +202,12 @@ public class ActivityMain extends AppCompatActivity {
                     if (itemProduct != null) {
                         onChangeItemSelectedFragment(selectedFragment, itemProduct);
                     }
+                }
+                break;
+            case ADD_PRODUCT_ITENT:
+                if (resultCode == RESULT_OK && data != null) {
+                    ItemProduct itemProduct = data.getParcelableExtra(ITEM_INTENT);
+                    
                 }
                 break;
         }

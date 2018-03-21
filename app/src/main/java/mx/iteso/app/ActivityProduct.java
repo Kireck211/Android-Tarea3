@@ -29,13 +29,13 @@ public class ActivityProduct extends AppCompatActivity implements View.OnClickLi
             if (mItemProduct != null) {
                 if (intent.getExtras() != null)
                     mSelectedFragment = intent.getExtras().getInt(FRAGMENT_INTENT);
-                mBinding.tiNameActivityProduct.setText(mItemProduct.getTitle());
+                /*mBinding.tiNameActivityProduct.setText(mItemProduct.getTitle());
                 mBinding.tiStoreActivityProduct.setText(mItemProduct.getStore());
                 mBinding.tiPhoneActivityProduct.setText(mItemProduct.getPhone());
                 mBinding.tiLocationActivityProduct.setText(mItemProduct.getLocation());
                 mBinding.ivProductActivityProduct.setImageResource(mItemProduct.getImage());
                 mBinding.btnSaveActivityProduct.setOnClickListener(this);
-                mBinding.btnCancelActivityProduct.setOnClickListener(this);
+                mBinding.btnCancelActivityProduct.setOnClickListener(this);*/
             }
         }
     }
@@ -45,7 +45,7 @@ public class ActivityProduct extends AppCompatActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.btn_save_activity_product:
                 Intent intent = new Intent();
-                ItemProduct itemProduct = new ItemProduct(
+                /*ItemProduct itemProduct = new ItemProduct(
                         getString(mBinding.tiNameActivityProduct),
                         getString(mBinding.tiStoreActivityProduct),
                         getString(mBinding.tiPhoneActivityProduct),
@@ -55,7 +55,7 @@ public class ActivityProduct extends AppCompatActivity implements View.OnClickLi
                 );
                 intent.putExtra(ITEM_INTENT, itemProduct);
                 intent.putExtra(FRAGMENT_INTENT, mSelectedFragment);
-                setResult(RESULT_OK, intent);
+                setResult(RESULT_OK, intent);*/
                 finish();
                 break;
             case R.id.btn_cancel_activity_product:

@@ -7,6 +7,11 @@
         <item>Alienware</item>
         <item>Lanix</item>
     </string-array>
+    <string-array name="drawables">
+        <item>@drawable/mac</item>
+        <item>@drawable/alienware</item>
+        <item>@drawable/lanix</item>
+    </string-array>
     <string name="location">Zapopan</string>
     <string name="phone">3312345678</string>
     <string name="store">Best Buy</string>

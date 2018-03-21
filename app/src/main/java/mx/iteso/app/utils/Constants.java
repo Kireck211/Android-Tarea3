@@ -2,6 +2,7 @@ package mx.iteso.app.utils;
 
 public final class Constants {
     public static final int CHANGE_PRODUCT_INFO = 1;
+    public static final int ADD_PRODUCT_ITENT = 2;
     public static final String ITEM_INTENT = "ITEM";
     public static final int FRAGMENT_TECHNOLOGY = 0;
     public static final int FRAGMENT_HOME = 1;

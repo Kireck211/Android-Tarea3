@@ -17,7 +17,7 @@ import static mx.iteso.app.utils.Constants.SQL_ERROR_INSERT;
 public class ItemProductControl {
     private static final String TAG = "Debug " + ItemProductControl.class.getSimpleName();
 
-    public boolean addItemProduct(ItemProduct itemProduct, DataBaseHandler dh) {
+    public static boolean addItemProduct(ItemProduct itemProduct, DataBaseHandler dh) {
         SQLiteDatabase db = dh.getWritableDatabase();
         ContentValues values = new ContentValues();
         // Begin transaction

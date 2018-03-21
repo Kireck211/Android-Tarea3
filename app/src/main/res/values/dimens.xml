@@ -8,4 +8,6 @@
     <dimen name="image_height_activity_product">180dp</dimen>
     <dimen name="padding_login_main_wrapper">10dp</dimen>
     <dimen name="text_splash_screen_size">20sp</dimen>
+    <dimen name="activity_item_padding">10dp</dimen>
+    <dimen name="margin_bottom_activity_item">5dp</dimen>
 </resources>

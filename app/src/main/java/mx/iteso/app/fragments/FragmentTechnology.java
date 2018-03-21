@@ -32,7 +32,7 @@ public class FragmentTechnology extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        if (products == null) {
+        /*if (products == null) {
             products = new ArrayList<>();
             String[] laptops = getResources().getStringArray(R.array.laptops);
             String location = getString(R.string.location);
@@ -41,7 +41,7 @@ public class FragmentTechnology extends Fragment {
             int[] images = new int[]{R.drawable.mac, R.drawable.alienware, R.drawable.lanix};
             for (int i = 0; i < laptops.length; i++)
                 products.add(new ItemProduct(laptops[i], store, phone, location, images[i], i));
-        }
+        }*/
 
         if (mAdapterProduct == null)
             mAdapterProduct= new AdapterProduct(products);

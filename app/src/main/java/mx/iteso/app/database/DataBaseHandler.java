@@ -73,9 +73,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.execSQL(storeProduct);
 
         // Add immediately three categories
-        db.execSQL("INSERT INTO Category (name) VALUES ('TECHNOLOGY');");
-        db.execSQL("INSERT INTO Category (name) VALUES ('HOME');");
-        db.execSQL("INSERT INTO Category (name) VALUES ('ELECTRONICS');");
+        String[] categories = new String[]{"TECHNOLOGY", "HOME", "ELECTRONICS"};
+        for(String categoryName: categories)
+            db.execSQL("INSERT INTO Category (name) VALUES ('" + categoryName + "');");
 
         // Add immediately cities
         String[] cities = new String[] {

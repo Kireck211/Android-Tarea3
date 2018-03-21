@@ -27,7 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ActivityLogin" />
-        <activity android:name=".ActivityPrivacyPolicy"></activity>
+        <activity android:name=".ActivityPrivacyPolicy" />
+        <activity android:name=".ActivityItem"></activity>
     </application>
 
 </manifest>
