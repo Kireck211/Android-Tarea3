@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import mx.iteso.app.AdapterProduct;
 import mx.iteso.app.R;
 import mx.iteso.app.beans.ItemProduct;
+import mx.iteso.app.database.DataBaseHandler;
+import mx.iteso.app.database.ItemProductControl;
 
 public class FragmentHome extends Fragment {
     private AdapterProduct mAdapter;
@@ -32,16 +34,13 @@ public class FragmentHome extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        products = new ArrayList<>();
-        String[] laptops = getResources().getStringArray(R.array.laptops);
-        String location = getString(R.string.location);
-        String phone = getString(R.string.phone);
-        String store = getString(R.string.store);
-        int[] images = new int[]{R.drawable.mac, R.drawable.alienware, R.drawable.lanix};
-        /*for(int i = 0; i < laptops.length; i++)
-            products.add(new ItemProduct(laptops[i], store, phone, location, images[i], i));*/
+        DataBaseHandler dh = DataBaseHandler.getInstance(getContext());
 
-        mAdapter = new AdapterProduct(products);
+        if (products == null)
+            products = ItemProductControl.getItemProductsByCategory(DataBaseHandler.HOME_CATEGORY, dh);
+
+        if (mAdapter == null)
+            mAdapter = new AdapterProduct(products);
         recyclerView.setAdapter(mAdapter);
 
         return rootView;

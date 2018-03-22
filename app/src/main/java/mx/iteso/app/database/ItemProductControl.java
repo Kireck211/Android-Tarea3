@@ -54,7 +54,7 @@ public class ItemProductControl {
         return resultProduct != SQL_ERROR_INSERT && resultRelation != SQL_ERROR_INSERT;
     }
 
-    public ArrayList<ItemProduct> getItemProductsByCategory(int idCategory, DataBaseHandler dh) {
+    public static ArrayList<ItemProduct> getItemProductsByCategory(int idCategory, DataBaseHandler dh) {
         ArrayList<ItemProduct> itemProducts = new ArrayList<>();
         SQLiteDatabase db = dh.getReadableDatabase();
         String closeQuery = ";";
@@ -75,16 +75,18 @@ public class ItemProductControl {
         String limitInQuery = " LIMIT 1 ";
         String selectProducts = "SELECT Product.idproduct, Product.title, Product.description, Product.image," +            // idproduct(0), title(1), description(2), image(3)
                 " Store.id, Store.name, Store.phone, Store.idcity, Store.thumbnail, Store.latitude, Store.longitude," +     // id(4), name(5), phone(6), idcity(7), thumbnail(8), latitude(9), longitude(10)
-                " City.id, City.name," +                                                                                    // id(11), name(12)
-                " FROM Product WHERE idcategory = " + idCategory +
-                " JOIN StoreProduct ON Product.idproduct = StoreProduct = idproduct" +
+                " City.id, City.name" +                                                                                    // id(11), name(12)
+                " FROM Product " +
+                " JOIN StoreProduct ON Product.idproduct = StoreProduct.idproduct" +
                 " JOIN Store ON StoreProduct.idstore = Store.id" +
-                " JOIN City ON Store.idcity = City.id";
+                " JOIN City ON Store.idcity = City.id " +
+                " WHERE Product.idCategory = " + idCategory;
         cursor = db.rawQuery(selectProducts + limitInQuery + closeQuery, null);
         Store store;
         City city;
 
-        if (cursor != null) {
+        if (cursor != null && cursor.getCount() != 0) {
+            cursor.moveToNext();
             city = new City();
             city.setId(cursor.getInt(11));
             city.setName(cursor.getString(12));

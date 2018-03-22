@@ -10,6 +10,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String TAG = "Debug " + DataBaseHandler.class.getSimpleName();
     private static final String DATABASE_NAME = "ITESO_APP.db";
     private static final int DATABASE_VERSION = 1;
+    public static final int TECHNOLOGY_CATEGORY = 1;
+    public static final int HOME_CATEGORY = 2;
+    public static final int ELECTRONICS_CATEGORY = 3;
 
     private static DataBaseHandler dataBaseHandler;
 
